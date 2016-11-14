@@ -22,4 +22,8 @@ public class PhotoURL {
     public String getSizeCode() {
         return sizeCode;
     }
+
+    public String getUrl() {
+        return url;
+    }
 }

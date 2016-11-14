@@ -36,4 +36,9 @@ public class Photo
 
         return  false;
     }
+
+    public String getSmallPhotoUrl()
+    {
+        return photos.get( "small2x" ).getUrl();
+    }
 }

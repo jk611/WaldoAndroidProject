@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +43,22 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .build();
+        ImageLoader.getInstance().init(config);
+
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        try
+        {
+            JSONObject json = new JSONObject(loadAlbumFromJson( "album.json"));
+
+            List<Photo> album = readAlbumList( json );
+            gridview.setAdapter(new ImageAdapter(this, album));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -49,16 +66,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        try
-        {
-            JSONObject json = new JSONObject(loadAlbumFromJson( "album.json"));
-
-            List<Photo> album = readAlbumList( json );
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     private List<Photo> readAlbumList(JSONObject json) throws JSONException
