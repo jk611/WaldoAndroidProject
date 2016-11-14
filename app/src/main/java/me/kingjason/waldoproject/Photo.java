@@ -15,7 +15,7 @@ public class Photo
         photos = new HashMap<>();
     }
 
-    public boolean addPhoto( PhotoURL url )
+    public boolean addUrl(PhotoURL url )
     {
         if( url.getSizeCode() != null )
         {
@@ -26,7 +26,7 @@ public class Photo
         return false;
     }
 
-    public boolean addPhoto( String _sizeCode, String _url, int _width, int _height, float _quality, String _mime )
+    public boolean addUrl(String _sizeCode, String _url, int _width, int _height, double _quality, String _mime )
     {
         if( _sizeCode != null )
         {

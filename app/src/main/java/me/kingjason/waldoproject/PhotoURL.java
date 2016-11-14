@@ -7,9 +7,9 @@ package me.kingjason.waldoproject;
 public class PhotoURL {
     protected String sizeCode, url, mime;
     protected int width, height;
-    protected float quality;
+    protected double quality;
 
-    public  PhotoURL( String _sizeCode, String _url, int _width, int _height, float _quality, String _mime )
+    public  PhotoURL( String _sizeCode, String _url, int _width, int _height, double _quality, String _mime )
     {
         sizeCode = _sizeCode;
         url = _url;
