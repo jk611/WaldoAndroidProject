@@ -8,37 +8,47 @@ import java.util.HashMap;
 
 public class Photo
 {
-    HashMap< String, PhotoURL > photos;
+    HashMap<String, PhotoURL> photos;
 
     public Photo()
     {
         photos = new HashMap<>();
     }
 
-    public boolean addUrl(PhotoURL url )
+    public boolean addUrl( PhotoURL url )
     {
-        if( url.getSizeCode() != null )
+        if ( url.getSizeCode() != null )
         {
-            photos.put(url.getSizeCode(), url);
-            return  true;
+            photos.put( url.getSizeCode(), url );
+            return true;
         }
 
         return false;
     }
 
-    public boolean addUrl(String _sizeCode, String _url, int _width, int _height, double _quality, String _mime )
+    public boolean addUrl( String _sizeCode, String _url, int _width, int _height, double _quality, String _mime )
     {
-        if( _sizeCode != null )
+        if ( _sizeCode != null )
         {
-            photos.put(_sizeCode, new PhotoURL(_sizeCode, _url, _width, _height, _quality, _mime));
+            photos.put( _sizeCode, new PhotoURL( _sizeCode, _url, _width, _height, _quality, _mime ) );
             return true;
         }
 
-        return  false;
+        return false;
     }
 
     public String getSmallPhotoUrl()
     {
         return photos.get( "small2x" ).getUrl();
+    }
+
+    public String getLargePhotoUrl()
+    {
+        return photos.get( "large" ).getUrl();
+    }
+
+    public String getMediumPhotoUrl()
+    {
+        return photos.get( "medium" ).getUrl();
     }
 }
