@@ -6,18 +6,17 @@ package me.kingjason.waldoproject;
 
 public class PhotoURL
 {
-    protected String sizeCode, url, mime;
+    protected String sizeCode, url;
     protected int width, height;
     protected double quality;
 
-    public PhotoURL( String _sizeCode, String _url, int _width, int _height, double _quality, String _mime )
+    public PhotoURL( String _sizeCode, String _url, int _width, int _height, double _quality )
     {
         sizeCode = _sizeCode;
         url = _url;
         width = _width;
         height = _height;
         quality = _quality;
-        mime = _mime;
     }
 
     public String getSizeCode()

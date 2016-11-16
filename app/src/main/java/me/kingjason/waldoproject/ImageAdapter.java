@@ -7,14 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +17,6 @@ import java.util.List;
  */
 public class ImageAdapter extends BaseAdapter
 {
-    private Context mContext;
     private List<Photo> album;
     ImageLoader imageLoader;
     private DisplayImageOptions options;
@@ -30,7 +24,6 @@ public class ImageAdapter extends BaseAdapter
 
     public ImageAdapter( Context c, List<Photo> _album )
     {
-        mContext = c;
         album = _album;
         inflater = LayoutInflater.from( c );
         imageLoader = ImageLoader.getInstance();
@@ -44,9 +37,9 @@ public class ImageAdapter extends BaseAdapter
                 .build();
     }
 
-    public void setGridData( List<Photo> mGridData )
+    public void setGridData( List<Photo> gridData )
     {
-        this.album = mGridData;
+        this.album = gridData;
         notifyDataSetChanged();
     }
 
@@ -84,6 +77,7 @@ public class ImageAdapter extends BaseAdapter
             holder = ( ViewHolder ) view.getTag();
         }
 
+        // Download photo and display in imageView
         ImageLoader.getInstance()
                 .displayImage( album.get( position ).getSmallPhotoUrl(), holder.imageView, options );
         return view;

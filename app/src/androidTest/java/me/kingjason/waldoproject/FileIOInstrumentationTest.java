@@ -14,13 +14,25 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+@RunWith( AndroidJUnit4.class )
+public class FileIOInstrumentationTest
+{
     @Test
-    public void useAppContext() throws Exception {
+    public void testNoFile() throws Exception
+    {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
+        String file = Utils.loadStringFromFile( "not_a_file.txt", appContext );
 
-        assertEquals("me.kingjason.waldoproject", appContext.getPackageName());
+        assertNull( file );
+    }
+    @Test
+    public void testFileNotNull() throws Exception
+    {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        String file = Utils.loadStringFromFile( "album.json", appContext );
+
+        assertNotNull( file );
     }
 }

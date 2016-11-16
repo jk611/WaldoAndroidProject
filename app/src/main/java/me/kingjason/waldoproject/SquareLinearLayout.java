@@ -36,6 +36,7 @@ public class SquareLinearLayout extends LinearLayout
     @Override
     public void onMeasure( int widthMeasureSpec, int heightMeasureSpec )
     {
+        // Make sure each grid item is square by returning the existing width for the height
         super.onMeasure( widthMeasureSpec, widthMeasureSpec );
     }
 }

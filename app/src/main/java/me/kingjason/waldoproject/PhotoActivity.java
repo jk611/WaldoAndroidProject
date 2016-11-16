@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,19 +29,18 @@ public class PhotoActivity extends AppCompatActivity
     {
         super.onCreate( savedInstanceState );
 
-        //Setting details screen layout
         setContentView( R.layout.activity_photo );
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        //retrieves the thumbnail data
+        // Retrieve the photo URLs
         Bundle bundle = getIntent().getExtras();
         final String image = bundle.getString( "largeImage" );
         String smallImage = bundle.getString( "smallImage" );
 
-        //Set image url
         final ImageView imageView = ( ImageView ) findViewById( R.id.grid_item_image );
+        final ProgressBar spinner = ( ProgressBar ) findViewById( R.id.progressBar );
 
         final DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory( true )
@@ -49,12 +49,22 @@ public class PhotoActivity extends AppCompatActivity
                 .bitmapConfig( Bitmap.Config.RGB_565 )
                 .build();
 
+        // First, display small image that is already downloaded and cached.
         ImageLoader.getInstance().displayImage( smallImage, imageView, options, new SimpleImageLoadingListener()
         {
             @Override
             public void onLoadingComplete( String imageUri, View view, Bitmap loadedImage )
             {
-                ImageLoader.getInstance().displayImage( image, imageView, options );
+                // After the small image is loaded, start loading the large image
+                ImageLoader.getInstance().displayImage( image, imageView, options, new SimpleImageLoadingListener()
+                {
+                    @Override
+                    public void onLoadingComplete( String imageUri, View view, Bitmap loadedImage )
+                    {
+                        // After large image is loaded, remove loading spinner
+                        spinner.setVisibility( View.GONE );
+                    }
+                } );
             }
         } );
 
